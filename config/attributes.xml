@@ -1,0 +1,19 @@
+<attributes>
+  <!--core: C_ prefix-->
+  <attribute name="C_HP" xpTracking="false" />
+  <attribute name="C_maxHP" xpTracking="false" />
+  <attribute name="C_MP" xpTracking="false" />
+  <attribute name="C_maxMP" xpTracking="false" />
+  <attribute name="C_DP" xpTracking="false" />
+  <!--basic: B_ prefix-->
+  <attribute name="B_STR" />
+  <attribute name="B_REF" />
+  <attribute name="B_CON" />
+  <attribute name="B_INT" />
+  <attribute name="B_CHA" />
+  <attribute name="B_STE" />
+  <!--professional: P_ prefix-->
+  <attribute name="P_LONGBLADE" />
+  <!--specialized: S_ prefix-->
+  <attribute name="S_LONGSWORD" />
+</attributes>

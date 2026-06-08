@@ -1,0 +1,17 @@
+<races>
+  <!--humanoids-->
+  <race>Human</race>
+  <race>Elf</race>
+  <race>Dwarf</race>
+  <race>Orc</race>
+  <race>Halfelf</race>
+  <race>Halfdwarf</race>
+  <race>Halforc</race>
+  <race>Elforc</race>
+  <!--animals-->
+  <race>Rat</race>
+  <race>Bat</race>
+  <race>Wolf</race>
+  <race>Boar</race>
+  <race>Bear</race>
+</races>
