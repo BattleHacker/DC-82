@@ -8,8 +8,10 @@
 **Related files:**
 - `src/main/java/dc82/model/Attribute.java`
 
-**Classes:** `dc82.model.Attribute`
+**Classes:** `dc82.model.Attribute`, `dc82.model.AttributeXP`
 
 **TODOs:** *(none)*
 
-**Latest changes:** *(new)*
+**Latest changes:**
+- Neues Feld `xpTracking` (boolean), default `true`
+- `AttributeXP` als Subklasse mit XP-Tracking, Level-Progression und talent-Multiplikator

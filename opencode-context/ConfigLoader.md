@@ -13,4 +13,5 @@
 
 **TODOs:** *(none)*
 
-**Latest changes:** *(new)*
+**Latest changes:**  
+- Initial erstellt: Lazy-Loading XML-Reader mit Cache aus `config/`-Verzeichnis

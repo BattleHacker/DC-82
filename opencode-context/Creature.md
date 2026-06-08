@@ -12,4 +12,5 @@
 
 **TODOs:** *(none)*
 
-**Latest changes:** *(new)*
+**Latest changes:**
+- Methoden-Typos korrigiert (`getAttributees` → `getAttributes` etc.)

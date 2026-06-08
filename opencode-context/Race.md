@@ -13,4 +13,6 @@
 
 **TODOs:** *(none)*
 
-**Latest changes:** *(new)*
+**Latest changes:**  
+- Initial erstellt: Lazy-Load aus `config/races.xml`
+- Optimiert: `HashMap<String, Race>` statt lineare Liste
