@@ -1,6 +1,7 @@
 package dc82.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -9,19 +10,22 @@ import java.util.Optional;
  * A creature in the game world. Each creature holds a list of {@link Attribute}
  * objects that define its game-mechanic properties.
  */
-public class Creature {
+public class Creature implements EffectConsumer {
 
     private String name;
     private List<Attribute> attributes;
+    private List<Status> statuses;
 
     public Creature(String name) {
         this.name = name;
         this.attributes = new ArrayList<>();
+        this.statuses = new ArrayList<>();
     }
 
     public Creature(String name, List<Attribute> attributes) {
         this.name = name;
         this.attributes = new ArrayList<>(attributes);
+        this.statuses = new ArrayList<>();
     }
 
     public String getName() {
@@ -57,6 +61,25 @@ public class Creature {
         return attributes.removeIf(a -> a.getName().equals(name));
     }
 
+    // -- EffectConsumer implementation ---------------------------------
+
+    @Override
+    public List<Status> getStatuses() {
+        return Collections.unmodifiableList(statuses);
+    }
+
+    @Override
+    public void addStatus(Status status) {
+        this.statuses.add(status);
+    }
+
+    @Override
+    public boolean removeStatus(String name) {
+        return statuses.removeIf(s -> s.getName().equals(name));
+    }
+
+    // -- Object overrides ---------------------------------------------
+
     @Override
     public String toString() {
         return name + attributes;
@@ -66,11 +89,13 @@ public class Creature {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Creature creature)) return false;
-        return Objects.equals(name, creature.name) && Objects.equals(attributes, creature.attributes);
+        return Objects.equals(name, creature.name)
+                && Objects.equals(attributes, creature.attributes)
+                && Objects.equals(statuses, creature.statuses);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, attributes);
+        return Objects.hash(name, attributes, statuses);
     }
 }

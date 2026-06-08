@@ -16,19 +16,19 @@ public class AttributeXP extends Attribute {
     private double talent;
 
     public AttributeXP(String name, int value) {
-        super(name, value, true);
+        super(name, value, true, 1, MAX_LEVEL);
         this.xp = 0;
         this.talent = 1.0;
     }
 
     public AttributeXP(String name, int value, double talent) {
-        super(name, value, true);
+        super(name, value, true, 1, MAX_LEVEL);
         this.xp = 0;
         this.talent = requireValidTalent(talent);
     }
 
     public AttributeXP(String name, int value, double talent, long xp) {
-        super(name, value, true);
+        super(name, value, true, 1, MAX_LEVEL);
         this.xp = xp;
         this.talent = requireValidTalent(talent);
     }
