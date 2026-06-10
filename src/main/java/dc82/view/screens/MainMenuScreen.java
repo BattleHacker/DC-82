@@ -29,6 +29,7 @@ public class MainMenuScreen extends AbstractScreen {
         }
         table.add(btn("MODS", MenuAction.MODS)).pad(4).row();
         table.add(btn("SETTINGS", MenuAction.SETTINGS)).pad(4).row();
+        table.add(btn("EXIT", MenuAction.QUIT)).pad(4).row();
 
         stage.addActor(table);
     }

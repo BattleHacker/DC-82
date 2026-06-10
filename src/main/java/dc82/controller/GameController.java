@@ -10,6 +10,7 @@ import dc82.model.Character;
 import dc82.model.CharacterTemplate;
 import dc82.model.SaveSlot;
 import dc82.util.SaveManager;
+import com.badlogic.gdx.Gdx;
 import dc82.view.ScreenId;
 import dc82.view.ViewManager;
 
@@ -87,6 +88,7 @@ public class GameController {
             case MAP -> viewManager.showScreen(ScreenId.MAP);
             case BACK_TO_ENCOUNTER -> viewManager.showScreen(ScreenId.ENCOUNTER);
             case BACK -> viewManager.showScreen(ScreenId.MAIN_MENU);
+            case QUIT -> Gdx.app.exit();
             default -> dc82.util.Logger.warn("Unhandled menu action: " + action);
         }
     }

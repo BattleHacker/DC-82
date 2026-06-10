@@ -9,5 +9,6 @@ public enum MenuAction {
     SETTINGS,
     MAP,
     BACK_TO_ENCOUNTER,
-    BACK
+    BACK,
+    QUIT
 }
