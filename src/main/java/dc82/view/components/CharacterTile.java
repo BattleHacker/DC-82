@@ -16,14 +16,14 @@ public class CharacterTile extends Table {
 
     private static final int ICON_SIZE = 24;
 
-    public CharacterTile(Character character, Skin skin) {
+    public CharacterTile(Character character, Skin skin, int offsetLeft) {
         int hp = getAttrValue(character, "C_HP");
         int maxHp = getAttrValue(character, "C_maxHP");
         int mp = getAttrValue(character, "C_MP");
         int maxMp = getAttrValue(character, "C_maxMP");
         int dp = getAttrValue(character, "C_DP");
 
-        top().pad(4);
+        top().pad(4).padLeft(offsetLeft);
 
         var nameLabel = new Label(character.getName(), skin);
         nameLabel.setFontScale(0.9f);

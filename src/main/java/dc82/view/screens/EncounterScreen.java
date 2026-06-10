@@ -56,21 +56,12 @@ public class EncounterScreen extends AbstractScreen {
         var panel = new Table();
         panel.top().defaults().pad(4).top();
 
-        var defLine = new Table();
-        defLine.top();
-        defLine.add().expand().fill();
-
-        var frontLine = new Table();
-        frontLine.top();
         var party = controller.getCurrentSlot().gameState.party;
-        for (var character : party) {
-            frontLine.add(new CharacterTile(character, skin)).pad(2).fillX().expandX().row();
+        for (int i = 0; i < party.size(); i++) {
+            boolean frontLine = true;
+            int offset = frontLine ? 24 : 0;
+            panel.add(new CharacterTile(party.get(i), skin, offset)).fillX().expandX().row();
         }
-
-        panel.add(new Label("DEFENSE LINE", skin));
-        panel.add(new Label("FRONT LINE", skin)).row();
-        panel.add(defLine).fillX().expandX();
-        panel.add(frontLine).fillX().expandX();
 
         return panel;
     }
