@@ -28,6 +28,6 @@ public class Milestone {
     }
 
     public static String randomName() {
-        return RandomUtil.randomName(5, 12);
+        return RandomUtil.randomName(2, 3);
     }
 }

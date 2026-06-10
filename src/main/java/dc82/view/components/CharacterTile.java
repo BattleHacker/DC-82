@@ -14,7 +14,7 @@ import dc82.model.Character;
 
 public class CharacterTile extends Table {
 
-    private static final int ICON_SIZE = 48;
+    private static final int ICON_SIZE = 24;
 
     public CharacterTile(Character character, Skin skin) {
         int hp = getAttrValue(character, "C_HP");
