@@ -18,12 +18,12 @@ import org.xml.sax.SAXException;
  */
 public class ConfigLoader {
 
-    private static final Path configDir = Path.of("config");
+    private static final Path configDir = Path.of("config").toAbsolutePath();
     private static final Map<String, Document> cache = new HashMap<>();
 
     /** Returns the resolved config directory path. */
     public static Path getConfigDir() {
-        return configDir.toAbsolutePath();
+        return configDir;
     }
 
     /**

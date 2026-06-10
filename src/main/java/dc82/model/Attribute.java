@@ -77,7 +77,7 @@ public class Attribute implements EffectConsumer {
     }
 
     /** Sets the permanent base value, clamped to [minValue, maxValue]. */
-    public void setValue(int value) {
+    public void setBaseValue(int value) {
         this.baseValue = clamp(value, minValue, maxValue);
     }
 
@@ -151,6 +151,16 @@ public class Attribute implements EffectConsumer {
     @Override
     public boolean removeStatus(String name) {
         return statuses.removeIf(s -> s.getName().equals(name));
+    }
+
+    /**
+     * Applies a CHANGE_VALUE effect for the given field.
+     * Subclasses (e.g. AttributeXP) may override to handle XP/talent changes.
+     */
+    public void applyChange(Effect.Field field, int amount) {
+        if (field == Effect.Field.VALUE) {
+            setBaseValue(getBaseValue() + amount);
+        }
     }
 
     // -- Object overrides ---------------------------------------------

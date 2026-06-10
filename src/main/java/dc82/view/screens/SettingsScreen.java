@@ -17,6 +17,7 @@ public class SettingsScreen extends AbstractScreen {
 
     @Override
     protected void buildUI() {
+        stage.clear();
         var table = new Table();
         table.setFillParent(true);
 

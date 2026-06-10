@@ -46,7 +46,7 @@ public class AttributeXP extends Attribute {
 
     /** Updates the inherited {@code value} to match {@link #getLevel()}. */
     private void syncValue() {
-        setValue(getLevel());
+        setBaseValue(getLevel());
     }
 
     /**
@@ -98,6 +98,15 @@ public class AttributeXP extends Attribute {
     @Override
     public int hashCode() {
         return Objects.hash(super.hashCode(), xp, talent);
+    }
+
+    @Override
+    public void applyChange(Effect.Field field, int amount) {
+        switch (field) {
+            case VALUE -> {} // value is derived from XP
+            case XP -> addXP(amount);
+            case TALENT -> setTalent(getTalent() + amount);
+        }
     }
 
     @Override

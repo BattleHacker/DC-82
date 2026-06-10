@@ -28,9 +28,10 @@ public abstract class AbstractScreen implements Screen {
     protected final Stage stage;
     protected final Viewport viewport;
     protected static Skin skin;
+    private static boolean skinDisposed = false;
 
-    protected static final int VW = 320;
-    protected static final int VH = 240;
+    protected static final int VW = 640;
+    protected static final int VH = 480;
 
     public AbstractScreen(ViewManager viewManager, GameController controller) {
         this.viewManager = viewManager;
@@ -115,6 +116,10 @@ public abstract class AbstractScreen implements Screen {
     @Override
     public void dispose() {
         stage.dispose();
+        if (!skinDisposed && skin != null) {
+            skin.dispose();
+            skinDisposed = true;
+        }
     }
 
     protected void animateFadeIn(float duration) {

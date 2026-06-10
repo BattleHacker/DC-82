@@ -6,13 +6,23 @@
 - `./Encounter.md` – Jeder Milestone ist selbst ein Encounter
 - `./DC-82.md` – Hauptprojekt
 
-**Related files:** *(none yet)*
+**Related files:**
+- `src/main/java/dc82/model/Milestone.java`
+- `src/main/java/dc82/model/HexCoord.java`
+- `src/main/java/dc82/model/Path.java`
+- `src/main/java/dc82/model/MapState.java`
+- `src/main/java/dc82/util/MapGenerator.java`
 
-**Classes:** *(none yet)*
+**Classes:** `dc82.model.Milestone`, `dc82.model.HexCoord`, `dc82.model.Path`, `dc82.model.MapState`, `dc82.util.MapGenerator`
 
 **TODOs:**
-- Milestone-Klasse definieren (Name, Karten-Position, Encounter-Parameter)
+- Encounter-Parameter pro Milestone
 - Auswahl-Mechanik für nächsten Milestone
+- Milestone-Typen (Stadt, Dungeon, Boss, ...)
 
 **Latest changes:**
-- Konzept notiert
+- Milestone-Klasse implementiert (hex, paths, isCurrent, displayName)
+- HexCoord als axiales Flat-top-Koordinatensystem (distanceTo, angleDegTo, lineTo, hexesInRange)
+- Path als Kante zwischen zwei HexCoords
+- MapState zentraler Graph mit milestones, allPaths, current
+- MapGenerator: 1–6 Nachbarn, 160-200°-Expansion vom Zentrum weg, 20°-Mindestwinkel, keine Crossing-Pfade, keine Pfade durch existierende Milestones

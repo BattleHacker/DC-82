@@ -42,9 +42,13 @@ public class ViewManagerImpl implements ViewManager {
         return switch (id) {
             case SPLASH -> new SplashScreen(this, controller);
             case MAIN_MENU -> new MainMenuScreen(this, controller);
+            case NEW_GAME -> new NewGameScreen(this, controller);
             case LOAD_GAME -> new LoadGameScreen(this, controller);
             case MODS -> new ModsScreen(this, controller);
             case SETTINGS -> new SettingsScreen(this, controller);
+            case ENCOUNTER -> new EncounterScreen(this, controller);
+            case MAP -> new MapScreen(this, controller);
+            default -> throw new IllegalArgumentException("Unknown screen: " + id);
         };
     }
 }

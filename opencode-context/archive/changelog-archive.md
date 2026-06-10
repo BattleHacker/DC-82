@@ -1,0 +1,56 @@
+# Changelog Archive
+
+Historical changelog entries from before 2026-06-08, moved here from `DC-82.md` to reduce active context size.
+
+- GitHub Repo erstellt: `https://github.com/BattleHacker/DC-82.git`
+- `.gitignore` angelegt, initialer Commit + Push auf `main`
+- Code-Optimierung (Cleanup 2026-06-08): 5 Issues gelöst
+- Neue Klassen Effect, Status und Interface EffectConsumer eingeführt
+- Attribute implementiert nun EffectConsumer, hat modifyEffects-Liste und min/max-Limits
+- getValue() verarbeitet Modify-Effekte sequentiell von oben nach unten mit Clamping
+- setValue() clamp in Limits; Feld value → baseValue umbenannt
+- AttributeXP hat Limits min=1, max=MAX_LEVEL (100)
+- Creature implementiert EffectConsumer mit Status-Liste
+- Konzept: 3 Spiel-Ebenen (Milestone → Encounter × N → Milestone), Kampfrunden mit 7 Phasen
+- Effect: DurationUnit (ROUNDS/ENCOUNTERS) und TriggerPhase als TODOs notiert
+- Status: Modifikation der Game-Logik als TODO notiert
+- **UI-Framework: LibGDX 1.12.1** implementiert (Apache 2.0)
+- **View-Layer** mit MVC-Architektur: SplashScreen (0.5s) → MainMenuScreen (Continue/New, Load, Mods, Settings) mit Fade-Animationen
+- **Sub-Views:** LoadGameScreen, ModsScreen, SettingsScreen mit Back-Navigation
+- **PixelButton** als einheitliche UI-Komponente mit hover/down-states
+- **PixelFont** wrapper (derzeit default BitmapFont, integer positions)
+- **ViewManagerImpl** cached Screens lazy; Screens haben Referenz auf ViewManager + GameController
+- **GameController** vermittelt MenuAction-Enum an ViewManager für Screen-Wechsel
+- `--enable-preview` aus pom.xml entfernt (nicht benötigt, verursachte VS Code Build-Fehler)
+- VS Code Launch/Task-Konfiguration hinzugefügt (`.vscode/launch.json`, `.vscode/tasks.json`)
+- `exec-maven-plugin` für `mvn compile exec:java` hinzugefügt
+- **Save-System implementiert:** SaveManager (LibGDX Json via Gdx.files.local), Model-Klassen SaveSlot + Settings
+- **SaveSlots** werden in `saves/index.json` indiziert, nach `updatedAt` sortiert (neuste oben)
+- **MainMenuScreen:** Buttons "CONTINUE..." + "LOAD GAME" nur sichtbar bei vorhandenen Saves; "NEW GAME" immer sichtbar → NewGameScreen
+- **LoadGameScreen:** ScrollPane mit Slot-Panels (Name + Datum), roter Quadrat-Delete-Button ("X") mit YES/NO-Dialog
+- **NewGameScreen:** Placeholder-Screen mit BACK-Navigation
+- **Logger:** Globales Logging-System (dc82.util.Logger) — DEBUG-Modus → Konsole, PROD-Modus → Datei (game.log), Datei wird bei Neustart geleert; `--debug` CLI-Flag aktiviert DEBUG-Modus
+- **EncounterScreen + MapScreen:** Haupt-Spielscreen (Encounter) und Karten-Placeholder angelegt
+- **NewGameScreen:** "START"-Button hinzugefügt → EncounterScreen
+- **MenuAction:** START_GAME und MAP hinzugefügt; ScreenId: ENCOUNTER und MAP hinzugefügt
+- **HexCoord:** Value-Objekt für axiale Flat-top-Hex-Koordinaten (q,r) mit distanceTo, angleDegTo, hexesInRange, lineTo
+- **Path:** Beschreibt Verbindung zwischen zwei HexCoords (a, b, distance)
+- **Milestone:** Model-Klasse mit HexCoord, List<Path>, isCurrent, displayName
+- **MapState:** Zentraler Graph-Zustand (Map<HexCoord, Milestone>, List<Path>, current)
+- **MapGenerator neu aufgebaut:** Zwei-Phasen-Generierung pro Milestone (Range 1–3):
+  - **Phase 1 (Expansion):** Shuffled Pool aller Hexes in Range 1–3; erster Pass filtert auf ±20° der Expansionsrichtung (weg von (0,0)), zweiter Pass ohne Richtungsfilter als Fallback. Zufälliger Treffer durch Shuffle.
+  - **Phase 2 (Füllen):** Verbleibende Slots zufällig gefüllt — bevorzugt existierende unbesuchte Milestones (max. 2), sonst neue. Mindestens 1 neuer Milestone pro Durchlauf.
+  - **Erster Milestone (0,0):** Immer target=4 (startet mit 4 Nachbarn), um Graph-Verzweigung sicherzustellen.
+  - **Sackgassen-Regel:** Eine Sackgasse (target ≤ existing) ist nur erlaubt, wenn der **vorige Milestone** (von dem der Spieler kam) mindestens 2 unbesuchte Nachbarn hat. Sonst wird target=existing+1 erzwungen.
+  - **30°-Regel**, keine Crossing-Pfade, keine Milestones auf Pfadlinien, bestehende Nachbarn in Winkel-Prüfung.
+  - Weniger Milestones falls Constraints nicht erfüllbar.
+- **GameController:** startNewGame() → mapController.startNewMap(); travelTo() entfernt (via mapController.travelTo())
+- **Milestone.randomName():** Generiert Fantasy-Namen (5-12 Zeichen, Konsonant-Vokal-Muster)
+- **EncounterScreen:** Drei-Spalten-Layout (LEFT/CENTER placeholder, RIGHT = travel-to-Liste mit Buttons für alle Pfade vom aktuellen Milestone); Klick auf travel-Button → travelTo + rebuildUI; rebuild in show() für aktuelle Daten
+- **Viewport:** VW/VH auf 320x240 zurückgesetzt → FitViewport skaliert auf 640x480 (200% UI-Skalierung, Auflösung bleibt)
+- **MapScreen implementiert:** ShapeRenderer + eigener OrthographicCamera für Hex-Karten-Rendering; Milestones als Kreise (grün=aktuell, gelb=unbesucht, grau=besucht); Pfade als dicke Linien via rectLine (braun=vom aktuellen Knoten, grau=andere); Zoom 100%/50%/20% (1.0/2.0/5.0) über +/- Buttons mit Deaktivierung an Limits; Drag-to-Pan via InputMultiplexer (dragProcessor + Stage); Kamera zentriert auf aktuellem Milestone beim Eintritt; Zoom wird bei jedem Eintritt auf 100% zurückgesetzt; hexSize=28; 5px Linienstärke/12px Radius auf 100%-Zoom referenziert, via zoom * VW/screenWidth skalierte gleichbleibende Bildschirmgröße
+- **MapScreen Bugfix:** BACK-Button und Zoom-Buttons wurden nicht bedient, weil `stage.hit()` das innere `Label` des PixelButton zurückgab statt des PixelButton selbst. Der Check `hit instanceof PixelButton` schlug fehl → dragProcessor fraß das Event. Gefixt mit `isDescendantOfPixelButton()` das die Actor-Parent-Kette hochwandert.
+- **MapScreen:** Milestone-Namen werden bei Zoom < 2.0 (über 50%) über den Knoten zentriert angezeigt; Font-Skalierung passt sich via `GlyphLayout` ans Splitten an; unter 50% ausgeblendet
+- **MapScreen Drag Boundaries:** Kamera-Position wird nach Drag und CenterOnCurrent via `applyBounds()` auf die Ausdehnung aller Milestones begrenzt (`[leftmostX, rightmostX]` / `[bottommostY, topmostY]`). Der äußerste Knoten kann nicht über die Bildschirmmitte hinaus gescrollt werden.
+- **isOnAnyPathLine:** Verhindert, dass Milestones auf Pfadlinien platziert werden. Optimiert: nur Pfade mit Endpunkten ≤3 Distanz zum Kandidaten werden geprüft (max. Pfadlänge = 3).
+- **MapController:** Neue Klasse `dc82.controller.MapController` — kapselt `MapState` und alle Map-Operationen (`startNewMap()`, `travelTo()`, `getCurrentMilestone()`, `getAllMilestones()`, `getAllPaths()`, `getCurrentHex()`, `getMilestoneAt()`). `GameController` delegiert an `mapController` (final, im Konstruktor initialisiert). Screens greifen via `controller.getMapController()` auf die Map-API zu, ohne direkt auf `MapState` zuzugreifen.

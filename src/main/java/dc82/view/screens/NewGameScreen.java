@@ -1,6 +1,7 @@
 package dc82.view.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dc82.controller.GameController;
@@ -8,9 +9,9 @@ import dc82.controller.MenuAction;
 import dc82.view.ViewManager;
 import dc82.view.components.PixelButton;
 
-public class MainMenuScreen extends AbstractScreen {
+public class NewGameScreen extends AbstractScreen {
 
-    public MainMenuScreen(ViewManager viewManager, GameController controller) {
+    public NewGameScreen(ViewManager viewManager, GameController controller) {
         super(viewManager, controller);
     }
 
@@ -20,25 +21,21 @@ public class MainMenuScreen extends AbstractScreen {
         var table = new Table();
         table.setFillParent(true);
 
-        boolean hasSaves = controller.getSaveManager().hasSaves();
+        table.add(new Label("NEW GAME", skin)).pad(10).row();
+        table.add(new Label("Start a new adventure?", skin)).pad(10).row();
 
-        if (hasSaves) {
-            table.add(btn("CONTINUE...", MenuAction.CONTINUE)).pad(4).row();
-        }
-        table.add(btn("NEW GAME", MenuAction.NEW_GAME)).pad(4).row();
-        if (hasSaves) {
-            table.add(btn("LOAD GAME", MenuAction.LOAD)).pad(4).row();
-        }
-        table.add(btn("MODS", MenuAction.MODS)).pad(4).row();
-        table.add(btn("SETTINGS", MenuAction.SETTINGS)).pad(4).row();
+        table.add(btn("START", MenuAction.START_GAME)).pad(8).row();
+
+        var backBtn = new PixelButton("BACK", skin);
+        backBtn.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                controller.onMenuAction(MenuAction.BACK);
+            }
+        });
+        table.add(backBtn).pad(4);
 
         stage.addActor(table);
-    }
-
-    @Override
-    public void show() {
-        buildUI();
-        super.show();
     }
 
     private PixelButton btn(String text, MenuAction action) {

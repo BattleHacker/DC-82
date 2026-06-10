@@ -16,6 +16,13 @@ This file is loaded on every startup (Rule #1). Use it to find the right context
 | Milestone | ./Milestone.md | Point of Interest auf der Karte (z.B. Stadt, Boss) |
 | Encounter | ./Encounter.md | Einzelne Begegnung mit 3 Zustaenden (before/in/after combat) |
 | View | ./View.md | LibGDX-UI-Layer: Screens, Components, ViewManager, MVC-Architektur |
+| SaveSlot | ./SaveSlot.md | Datenmodell für Speicherstände (SaveSlot/Settings) |
+| SaveManager | ./SaveManager.md | Utility zum Speichern/Laden von Saves und Settings |
+| Logger | ./Logger.md | Globales Logging (Konsole im Debug-Modus, Datei im Prod-Modus) |
+| HexCoord | ./HexCoord.md | Axiale Flat-top-Hex-Koordinaten (q,r) mit Mathe-Utilities |
+| Path | ./Path.md | Bidirektionale Verbindung zwischen zwei HexCoords |
+| MapState | ./MapState.md | Zentraler Zustand des Milestone-Graphen |
+| MapGenerator | ./MapGenerator.md | Prozedurale Generierung des Milestone-Graphen |
 
 ---
 

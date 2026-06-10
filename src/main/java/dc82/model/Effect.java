@@ -54,37 +54,11 @@ public class Effect {
 
     /**
      * Applies the numeric change of this effect (CHANGE_VALUE only) to the given attribute.
-     * Permanent changes target the attribute's base value, XP, or talent.
+     * Delegates to the polymorphic {@link Attribute#applyChange(Field, int)}.
      */
     public void applyChange(Attribute attr) {
         if (type != Type.CHANGE_VALUE) return;
-
-        switch (field) {
-            case VALUE:
-                if (attr instanceof AttributeXP) {
-                    // TODO warn: AttributeXP derives value from XP; direct value change ignored
-                    return;
-                }
-                attr.setValue(attr.getBaseValue() + amount);
-                break;
-
-            case XP:
-                if (attr instanceof AttributeXP) {
-                    ((AttributeXP) attr).addXP(amount);
-                } else {
-                    // TODO warn: core Attribute does not support XP
-                }
-                break;
-
-            case TALENT:
-                if (attr instanceof AttributeXP) {
-                    AttributeXP xpAttr = (AttributeXP) attr;
-                    xpAttr.setTalent(xpAttr.getTalent() + amount);
-                } else {
-                    // TODO warn: core Attribute does not support talent
-                }
-                break;
-        }
+        attr.applyChange(field, amount);
     }
 
     /**

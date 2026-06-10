@@ -38,12 +38,14 @@ public class Race {
      * @throws IllegalArgumentException if the race is not found
      */
     public static Race getRace(String name) {
-        Race race = races.get(name);
-        if (race != null) return race;
-        if (races.isEmpty()) {
-            loadAll();
-            race = races.get(name);
+        synchronized (races) {
+            Race race = races.get(name);
             if (race != null) return race;
+            if (races.isEmpty()) {
+                loadAll();
+                race = races.get(name);
+                if (race != null) return race;
+            }
         }
         throw new IllegalArgumentException("Unknown race: " + name);
     }
