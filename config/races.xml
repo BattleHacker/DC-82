@@ -1,17 +1,67 @@
 <races>
   <!--humanoids-->
-  <race>Human</race>
-  <race>Elf</race>
-  <race>Dwarf</race>
-  <race>Orc</race>
-  <race>Halfelf</race>
-  <race>Halfdwarf</race>
-  <race>Halforc</race>
-  <race>Elforc</race>
+  <race name="Human">
+    <effects>
+      <effect ref="TALENT_BONUS" attribute="B" amount="0.05" />
+    </effects>
+  </race>
+  <race name="Elf">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_CON" amount="2" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_CHA" amount="1" />
+      <effect ref="TALENT_BONUS" attribute="B_STE" amount="0.2" />
+    </effects>
+  </race>
+  <race name="Dwarf">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STR" amount="3" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STE" amount="-1" />
+      <effect ref="TALENT_BONUS" attribute="B_STR" amount="0.2" />
+    </effects>
+  </race>
+  <race name="Orc">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STR,B_REF" amount="2" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_CHA" amount="-1" />
+      <effect ref="TALENT_BONUS" attribute="B_STR,B_REF" amount="0.1" />
+    </effects>
+  </race>
+  <race name="Halfelf">
+    <effects>
+      <effect ref="TALENT_BONUS" attribute="B_INT,B_CON" amount="0.05" />
+      <effect ref="TALENT_BONUS" attribute="B_STE,B_REF" amount="0.1" />
+    </effects>
+  </race>
+  <race name="Halfdwarf">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STR,B_CON" amount="1" />
+      <effect ref="TALENT_BONUS" attribute="B_CON" amount="0.1" />
+      <effect ref="TALENT_BONUS" attribute="B_STR,B_REF" amount="0.05" />
+    </effects>
+  </race>
+  <race name="Halforc">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STR" amount="1" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_REF" amount="2" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_CHA" amount="-2" />
+      <effect ref="TALENT_BONUS" attribute="B_STR,B_REF" amount="0.1" />
+      <effect ref="TALENT_BONUS" attribute="B_INT,B_STE" amount="0.05" />
+      <effect ref="TALENT_BONUS" attribute="B_CHA" amount="-0.05" />
+    </effects>
+  </race>
+  <race name="Elforc">
+    <effects>
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_STR,B_REF,B_CON" amount="1" />
+      <effect ref="ATTRIBUTE_BONUS" attribute="B_CHA" amount="-3" />
+      <effect ref="TALENT_BONUS" attribute="B_STR,B_CON" amount="0.1" />
+      <effect ref="TALENT_BONUS" attribute="B_REF" amount="0.2" />
+      <effect ref="TALENT_BONUS" attribute="B_CHA" amount="-0.1" />
+    </effects>
+  </race>
   <!--animals-->
-  <race>Rat</race>
-  <race>Bat</race>
-  <race>Wolf</race>
-  <race>Boar</race>
-  <race>Bear</race>
+  <race name="Rat" />
+  <race name="Bat" />
+  <race name="Wolf" />
+  <race name="Boar" />
+  <race name="Bear" />
 </races>

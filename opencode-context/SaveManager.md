@@ -5,7 +5,9 @@
 **Related keywords:**
 - `./DC-82.md`
 - `./SaveSlot.md`
+- `./GameState.md`
 - `./ConfigLoader.md`
+- `./Race.md` – Race hat benutzerdefinierten Json-Serializer (nur Name wird gespeichert)
 
 **Related files:**
 - `src/main/java/dc82/util/SaveManager.java`

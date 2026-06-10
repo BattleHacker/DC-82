@@ -1,11 +1,10 @@
 package dc82.view.screens;
 
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import dc82.controller.GameController;
 import dc82.controller.MenuAction;
@@ -18,8 +17,8 @@ import java.util.List;
 
 public class LoadGameScreen extends AbstractScreen {
 
-    public LoadGameScreen(ViewManager viewManager, GameController controller) {
-        super(viewManager, controller);
+    public LoadGameScreen(ViewManager viewManager, GameController controller, Skin skin) {
+        super(viewManager, controller, skin);
     }
 
     @Override
@@ -62,6 +61,12 @@ public class LoadGameScreen extends AbstractScreen {
         var left = new Table();
         left.add(nameLabel).left().pad(4, 8, 1, 8).row();
         left.add(dateLabel).left().pad(1, 8, 4, 8);
+        left.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                controller.loadGame(slot);
+            }
+        });
 
         var delBtn = createDeleteButton(slot);
 
@@ -72,25 +77,8 @@ public class LoadGameScreen extends AbstractScreen {
             .padLeft(8).padRight(8).row();
     }
 
-    private static TextureRegionDrawable deleteDrawable;
-
-    private static TextureRegionDrawable getDeleteDrawable(Skin skin) {
-        if (deleteDrawable == null) {
-            Pixmap pix = new Pixmap(4, 4, Pixmap.Format.RGBA8888);
-            pix.setColor(0.55f, 0.08f, 0.08f, 1);
-            pix.fill();
-            pix.setColor(0.75f, 0.15f, 0.15f, 1);
-            pix.drawRectangle(0, 0, 4, 4);
-            Texture tex = new Texture(pix);
-            pix.dispose();
-            tex.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
-            deleteDrawable = new TextureRegionDrawable(new TextureRegion(tex));
-        }
-        return deleteDrawable;
-    }
-
     private Button createDeleteButton(SaveSlot slot) {
-        TextureRegionDrawable drawable = getDeleteDrawable(skin);
+        TextureRegionDrawable drawable = skin.get("delete-btn-bg", TextureRegionDrawable.class);
 
         TextButton.TextButtonStyle delStyle = new TextButton.TextButtonStyle(
             drawable, drawable, drawable,
@@ -111,9 +99,13 @@ public class LoadGameScreen extends AbstractScreen {
         Dialog dialog = new Dialog("", skin) {
             @Override
             protected void result(Object object) {
-                if ((Boolean) object) {
+                if (object instanceof Boolean && (Boolean) object) {
                     controller.getSaveManager().deleteSlot(slot.id);
-                    buildUI();
+                    if (controller.getSaveManager().getSaveSlots().isEmpty()) {
+                        controller.onMenuAction(MenuAction.BACK);
+                    } else {
+                        buildUI();
+                    }
                 }
             }
         };
@@ -127,14 +119,9 @@ public class LoadGameScreen extends AbstractScreen {
         );
     }
 
-    @Override
-    public void show() {
-        buildUI();
-        super.show();
-    }
+    private static final java.text.SimpleDateFormat DATE_FMT = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     private static String formatDate(long millis) {
-        var fmt = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");
-        return fmt.format(new java.util.Date(millis));
+        return DATE_FMT.format(new java.util.Date(millis));
     }
 }

@@ -2,6 +2,7 @@ package dc82.view.screens;
 
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dc82.controller.GameController;
@@ -11,8 +12,8 @@ import dc82.view.components.PixelButton;
 
 public class ModsScreen extends AbstractScreen {
 
-    public ModsScreen(ViewManager viewManager, GameController controller) {
-        super(viewManager, controller);
+    public ModsScreen(ViewManager viewManager, GameController controller, Skin skin) {
+        super(viewManager, controller, skin);
     }
 
     @Override

@@ -7,13 +7,19 @@ This file is loaded on every startup (Rule #1). Use it to find the right context
 | DC-82   | ./DC-82.md  | Main project description |
 | Architektur Grundprinzipien | ./Architektur-Grundprinzipien.md | MVC-Design, generische Datenstruktur, XML-Content, erweiterbares Model, konfigurierbare Parameter |
 | Attribute | ./Attribute.md | Generischer Attribut-Wert (name + value) |
+| AttributeRegistry | ./AttributeRegistry.md | Zentrale Registry aller Attribut-Namen, Expansion von Shorthands (C/B/P/S/*) |
 | Creature | ./Creature.md | Kreatur mit Liste von Attributen |
 | Race | ./Race.md | Rasse (e.g. Human, Elf), Lazy-Load aus XML |
 | ConfigLoader | ./ConfigLoader.md | Utility zum Lazy-Laden von XML-Configs |
 | Effect | ./Effect.md | Ein Effekt ändert Werte dauerhaft (CHANGE_VALUE) oder temporär (MODIFY_VALUE) |
+| GameState | ./GameState.md | Speichert den Spielzustand (Party, später Map etc.) |
+| EffectTemplate | ./EffectTemplate.md | Vordefinierte Effekt-Vorlage aus effects.xml (name, type, field, icon) |
 | Status | ./Status.md | Ein Status (z.B. poisoned) an EffectConsumer (Creature/Attribute/Item) |
 | EffectConsumer | ./EffectConsumer.md | Interface für empfänger von Status-Effekten |
 | Milestone | ./Milestone.md | Point of Interest auf der Karte (z.B. Stadt, Boss) |
+| Character | ./Character.md | Spieler-/NPC-Charakter, generiert aus Template |
+| CharacterTemplate | ./CharacterTemplate.md | Charakter-Vorlage aus characters.xml (Rasse + Effekte) |
+| RandomUtil | ./RandomUtil.md | Zentrale Random-Quelle + Namensgenerierung |
 | Encounter | ./Encounter.md | Einzelne Begegnung mit 3 Zustaenden (before/in/after combat) |
 | View | ./View.md | LibGDX-UI-Layer: Screens, Components, ViewManager, MVC-Architektur |
 | SaveSlot | ./SaveSlot.md | Datenmodell für Speicherstände (SaveSlot/Settings) |

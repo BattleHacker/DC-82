@@ -15,6 +15,13 @@ public class AttributeXP extends Attribute {
     private long xp;
     private double talent;
 
+    // No-arg constructor for LibGDX Json deserialization only
+    public AttributeXP() {
+        super("", 0);
+        this.xp = 0;
+        this.talent = 1.0;
+    }
+
     public AttributeXP(String name, int value) {
         super(name, value, true, 1, MAX_LEVEL);
         this.xp = 0;
@@ -101,10 +108,10 @@ public class AttributeXP extends Attribute {
     }
 
     @Override
-    public void applyChange(Effect.Field field, int amount) {
+    public void applyChange(Effect.Field field, double amount) {
         switch (field) {
             case VALUE -> {} // value is derived from XP
-            case XP -> addXP(amount);
+            case XP -> addXP((long) amount);
             case TALENT -> setTalent(getTalent() + amount);
         }
     }

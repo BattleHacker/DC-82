@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dc82.controller.GameController;
@@ -21,6 +22,8 @@ import dc82.model.Path;
 import dc82.view.ViewManager;
 import dc82.view.components.PixelButton;
 import dc82.view.components.PixelFont;
+
+import java.util.Collection;
 
 public class MapScreen extends AbstractScreen {
 
@@ -45,8 +48,8 @@ public class MapScreen extends AbstractScreen {
     private PixelButton zoomInBtn, zoomOutBtn;
     private final GlyphLayout nameLayout = new GlyphLayout();
 
-    public MapScreen(ViewManager viewManager, GameController controller) {
-        super(viewManager, controller);
+    public MapScreen(ViewManager viewManager, GameController controller, Skin skin) {
+        super(viewManager, controller, skin);
         mapCamera = new OrthographicCamera(VW, VH);
         shapeRenderer = new ShapeRenderer();
         dragProcessor = createDragProcessor();
@@ -151,28 +154,30 @@ public class MapScreen extends AbstractScreen {
         mapCamera.update();
         shapeRenderer.setProjectionMatrix(mapCamera.combined);
 
-        drawPaths();
-        drawMilestones();
-        drawNames();
+        var mc = controller.getMapController();
+        if (mc.hasMapState()) {
+            Collection<Milestone> milestones = mc.getAllMilestones();
+            Collection<Path> paths = mc.getAllPaths();
+            HexCoord currentHex = mc.getCurrentHex();
+
+            drawPaths(paths, currentHex);
+            drawMilestones(milestones);
+            drawNames(milestones);
+        }
 
         stage.act(delta);
         stage.draw();
     }
 
-    private void drawPaths() {
-        var mc = controller.getMapController();
-        if (!mc.hasMapState()) return;
-        var allPaths = mc.getAllPaths();
+    private void drawPaths(Collection<Path> allPaths, HexCoord currentHex) {
         if (allPaths.isEmpty()) return;
 
         float pixelScale = VW / (float) Gdx.graphics.getWidth();
         float lineWidth = LINE_WIDTH_SCREEN_PX * pixelScale * mapCamera.zoom;
 
-        HexCoord currentHex = mc.getCurrentHex();
-
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         for (Path p : allPaths) {
-            boolean fromCurrent = p.connects(currentHex);
+            boolean fromCurrent = currentHex != null && p.connects(currentHex);
             shapeRenderer.setColor(fromCurrent ? BROWN_PATH : GRAY_PATH);
 
             float x1 = p.a.pixelX() * HEX_SIZE;
@@ -185,10 +190,7 @@ public class MapScreen extends AbstractScreen {
         shapeRenderer.end();
     }
 
-    private void drawMilestones() {
-        var mc = controller.getMapController();
-        if (!mc.hasMapState()) return;
-        var milestones = mc.getAllMilestones();
+    private void drawMilestones(Collection<Milestone> milestones) {
         if (milestones.isEmpty()) return;
 
         float pixelScale = VW / (float) Gdx.graphics.getWidth();
@@ -211,12 +213,9 @@ public class MapScreen extends AbstractScreen {
         shapeRenderer.end();
     }
 
-    private void drawNames() {
+    private void drawNames(Collection<Milestone> milestones) {
         if (mapCamera.zoom >= 2f) return;
 
-        var mc = controller.getMapController();
-        if (!mc.hasMapState()) return;
-        var milestones = mc.getAllMilestones();
         if (milestones.isEmpty()) return;
 
         BitmapFont font = PixelFont.get();
@@ -252,14 +251,19 @@ public class MapScreen extends AbstractScreen {
         mapCamera.zoom = zoom;
         centerOnCurrent();
         mapCamera.update();
-        updateZoomButtons();
 
         super.show();
 
+        updateZoomButtons();
         InputMultiplexer mux = new InputMultiplexer();
         mux.addProcessor(dragProcessor);
         mux.addProcessor(stage);
         Gdx.input.setInputProcessor(mux);
+    }
+
+    @Override
+    public void hide() {
+        Gdx.input.setInputProcessor(null);
     }
 
     private void centerOnCurrent() {
@@ -305,14 +309,4 @@ public class MapScreen extends AbstractScreen {
         shapeRenderer.dispose();
     }
 
-    private PixelButton btn(String text, MenuAction action) {
-        var b = new PixelButton(text, skin);
-        b.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.onMenuAction(action);
-            }
-        });
-        return b;
-    }
 }

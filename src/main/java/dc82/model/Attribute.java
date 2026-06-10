@@ -24,6 +24,11 @@ public class Attribute implements EffectConsumer {
     private List<Effect> modifyEffects;
     private List<Status> statuses;
 
+    // No-arg constructor for LibGDX Json deserialization only
+    public Attribute() {
+        this("", 0);
+    }
+
     public Attribute(String name, int value) {
         this(name, value, true);
     }
@@ -62,14 +67,15 @@ public class Attribute implements EffectConsumer {
 
     /**
      * Returns the effective value by processing all MODIFY_VALUE effects
-     * sequentially (top-to-bottom), clamping to [minValue, maxValue] after
-     * each effect.
+     * on the {@link Effect.Field#VALUE} field sequentially (top-to-bottom),
+     * clamping to [minValue, maxValue] after each effect.
      */
     public int getValue() {
         int current = baseValue;
         for (Effect effect : modifyEffects) {
-            if (effect.getType() == Effect.Type.MODIFY_VALUE) {
-                current += effect.getAmount();
+            if (effect.getType() == Effect.Type.MODIFY_VALUE
+                    && effect.getField() == Effect.Field.VALUE) {
+                current += (int) effect.getAmount();
                 current = clamp(current, minValue, maxValue);
             }
         }
@@ -157,9 +163,9 @@ public class Attribute implements EffectConsumer {
      * Applies a CHANGE_VALUE effect for the given field.
      * Subclasses (e.g. AttributeXP) may override to handle XP/talent changes.
      */
-    public void applyChange(Effect.Field field, int amount) {
+    public void applyChange(Effect.Field field, double amount) {
         if (field == Effect.Field.VALUE) {
-            setBaseValue(getBaseValue() + amount);
+            setBaseValue(getBaseValue() + (int) amount);
         }
     }
 

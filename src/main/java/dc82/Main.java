@@ -3,12 +3,15 @@ package dc82;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import dc82.controller.GameController;
 import dc82.util.Logger;
 import dc82.util.SaveManager;
 import dc82.view.ScreenId;
 import dc82.view.ViewManager;
 import dc82.view.ViewManagerImpl;
+import dc82.view.components.PixelFont;
+import dc82.view.screens.AbstractScreen;
 
 public class Main extends Game {
 
@@ -17,12 +20,18 @@ public class Main extends Game {
         Logger.init(logMode());
         Logger.info("Application started");
 
+        Skin skin = AbstractScreen.createSkin();
         SaveManager saveManager = new SaveManager();
         GameController controller = new GameController(saveManager);
-        ViewManager viewManager = new ViewManagerImpl(this, controller);
+        ViewManager viewManager = new ViewManagerImpl(this, controller, skin);
         controller.bind(viewManager);
         viewManager.showScreen(ScreenId.SPLASH);
         Logger.info("SplashScreen shown");
+    }
+
+    @Override
+    public void dispose() {
+        PixelFont.dispose();
     }
 
     public static void main(String[] args) {

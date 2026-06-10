@@ -5,6 +5,7 @@
   <attribute name="C_MP" xpTracking="false" />
   <attribute name="C_maxMP" xpTracking="false" />
   <attribute name="C_DP" xpTracking="false" />
+  
   <!--basic: B_ prefix-->
   <attribute name="B_STR" />
   <attribute name="B_REF" />
@@ -12,8 +13,49 @@
   <attribute name="B_INT" />
   <attribute name="B_CHA" />
   <attribute name="B_STE" />
+  
   <!--professional: P_ prefix-->
+  <!--weapons-->
+  <attribute name="P_BAREHANDED" />
+  <attribute name="P_SHORTBLADE" />
   <attribute name="P_LONGBLADE" />
+  <attribute name="P_AXE" />
+  <attribute name="P_MACE" />
+  <attribute name="P_SPEAR" />
+  <attribute name="P_FLAIL" />
+  <attribute name="P_TROWABLE" />
+  <attribute name="P_SLING" />
+  <attribute name="P_BOW" />
+  <attribute name="P_CROSSBOW" />
+  <!--defence-->
+  <attribute name="P_SMALLSHIELD" />
+  <attribute name="P_BIGSHIELD" />
+  <attribute name="P_LIGHTARMOR" />
+  <attribute name="P_HEAVYARMOR" />
+  <!--magic-->
+  <attribute name="P_MAGICELEMENTAL" />
+  <attribute name="P_MAGICNATURE" />
+  <attribute name="P_MAGICBUFF" />
+  <attribute name="P_MAGICCURSE" />
+  <attribute name="P_MAGICSUMMON" />
+  <attribute name="P_MAGICBAN" />
+  <attribute name="P_MAGICBLOOD" />
+  <attribute name="P_MAGICNECROMANCE" />
+  <attribute name="P_MAGICDIMENSINAL" />
+  <!--charisma-->
+  <attribute name="P_BARBING" />
+  <attribute name="P_CONVINCE" />
+  <attribute name="P_INTIMIDATE" />
+  <!--intelligence-->
+  <attribute name="P_IDENT" />
+  <attribute name="P_IDENTMAGIC" />
+  <attribute name="P_READING" />
+  <attribute name="P_STRATEGY" />
+  <!--stealth-->
+  <attribute name="P_SNEAK" />
+  <attribute name="P_HIDE" />
+  <attribute name="P_ESCAPE" />
+
   <!--specialized: S_ prefix-->
   <attribute name="S_LONGSWORD" />
 </attributes>

@@ -22,3 +22,5 @@
 - CHANGE_VALUE beachtet Limits (minValue/maxValue) des Attributs
 - MODIFY_VALUE wird sequentiell mit Clamping nach jedem Schritt verarbeitet
 - DurationUnit (Runden/Encounter) und TriggerPhase (Kampfrunden-Phasen 1-6) als Konzept notiert
+- `amount` von int auf double geändert (TALENT-Bonus mit 0.05 etc.)
+- Neuer 4-arg Constructor `Effect(Type, Field, double, int)` für MODIFY_VALUE mit beliebigem Field

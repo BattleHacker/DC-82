@@ -1,0 +1,5 @@
+<effects>
+  <effect name="ATTRIBUTE_BONUS" type="MODIFY_VALUE" field="VALUE" icon="placeholder" />
+  <effect name="XP_GAIN" type="CHANGE_VALUE" field="XP" icon="placeholder" />
+  <effect name="TALENT_BONUS" type="CHANGE_VALUE" field="TALENT" icon="placeholder" />
+</effects>

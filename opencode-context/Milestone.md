@@ -4,6 +4,7 @@
 
 **Related keywords:**
 - `./Encounter.md` – Jeder Milestone ist selbst ein Encounter
+- `./RandomUtil.md` – Milestone nutzt RandomUtil.randomName()
 - `./DC-82.md` – Hauptprojekt
 
 **Related files:**
@@ -26,3 +27,4 @@
 - Path als Kante zwischen zwei HexCoords
 - MapState zentraler Graph mit milestones, allPaths, current
 - MapGenerator: 1–6 Nachbarn, 160-200°-Expansion vom Zentrum weg, 20°-Mindestwinkel, keine Crossing-Pfade, keine Pfade durch existierende Milestones
+- `randomName()` delegiert jetzt an `RandomUtil.randomName(5, 12)`; eigene `C`/`V`/`RAND`-Felder entfernt

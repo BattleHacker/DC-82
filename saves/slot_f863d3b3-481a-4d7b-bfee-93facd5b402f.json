@@ -1,0 +1,136 @@
+{
+"id": "f863d3b3-481a-4d7b-bfee-93facd5b402f",
+"displayName": "New Game - 2026-06-10T21:07:49.6795049",
+"createdAt": 1781118469684,
+"updatedAt": 1781118469684,
+"gameState": {
+	"party": [
+		{
+			"name": "Growiwio",
+			"race": "Orc",
+			"attributes": [
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_STR",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"modifyEffects": [
+						{
+							"type": "MODIFY_VALUE",
+							"field": "VALUE",
+							"amount": 2
+						}
+					],
+					"talent": 1.1
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_REF",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"modifyEffects": [
+						{
+							"type": "MODIFY_VALUE",
+							"field": "VALUE",
+							"amount": 2
+						}
+					],
+					"talent": 1.1
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_CHA",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"modifyEffects": [
+						{
+							"type": "MODIFY_VALUE",
+							"field": "VALUE",
+							"amount": -1
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Mioproumitae",
+			"race": "Halfelf",
+			"attributes": [
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_INT",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.05
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_CON",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.05
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_STE",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.1
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_REF",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.1
+				}
+			]
+		},
+		{
+			"name": "Cioliotasa",
+			"race": "Halfelf",
+			"attributes": [
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_INT",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.05
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_CON",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.05
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_STE",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.1
+				},
+				{
+					"class": "dc82.model.AttributeXP",
+					"name": "B_REF",
+					"baseValue": 1,
+					"minValue": 1,
+					"maxValue": 100,
+					"talent": 1.1
+				}
+			]
+		}
+	]
+}
+}

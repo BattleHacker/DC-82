@@ -14,4 +14,4 @@
 **TODOs:** *(none)*
 
 **Latest changes:**  
-- Initial erstellt: Lazy-Loading XML-Reader mit Cache aus `config/`-Verzeichnis
+- `cache` von `HashMap` auf `ConcurrentHashMap` umgestellt – Thread-Safety (Issue #5)

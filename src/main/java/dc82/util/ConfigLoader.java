@@ -2,8 +2,8 @@ package dc82.util;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,7 +19,7 @@ import org.xml.sax.SAXException;
 public class ConfigLoader {
 
     private static final Path configDir = Path.of("config").toAbsolutePath();
-    private static final Map<String, Document> cache = new HashMap<>();
+    private static final Map<String, Document> cache = new ConcurrentHashMap<>();
 
     /** Returns the resolved config directory path. */
     public static Path getConfigDir() {

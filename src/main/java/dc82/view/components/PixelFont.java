@@ -13,4 +13,11 @@ public class PixelFont {
         }
         return font;
     }
+
+    public static void dispose() {
+        if (font != null) {
+            font.dispose();
+            font = null;
+        }
+    }
 }

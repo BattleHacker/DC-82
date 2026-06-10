@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.SerializationException;
+import dc82.model.Race;
 import dc82.model.SaveSlot;
 import dc82.model.Settings;
 
@@ -25,6 +26,17 @@ public class SaveManager {
 
     public SaveManager() {
         this.json = new Json();
+        json.setOutputType(com.badlogic.gdx.utils.JsonWriter.OutputType.json);
+        json.setSerializer(Race.class, new Json.Serializer<Race>() {
+            @Override
+            public void write(Json json, Race race, Class knownType) {
+                json.writeValue(race.getName());
+            }
+            @Override
+            public Race read(Json json, JsonValue jsonData, Class type) {
+                return Race.getRace(jsonData.asString());
+            }
+        });
         Gdx.files.local(SAVES_DIR).mkdirs();
     }
 

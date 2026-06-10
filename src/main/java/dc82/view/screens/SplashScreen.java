@@ -1,6 +1,7 @@
 package dc82.view.screens;
 
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import dc82.controller.GameController;
 import dc82.view.ScreenId;
@@ -11,8 +12,8 @@ public class SplashScreen extends AbstractScreen {
     private float elapsed;
     private boolean done;
 
-    public SplashScreen(ViewManager viewManager, GameController controller) {
-        super(viewManager, controller);
+    public SplashScreen(ViewManager viewManager, GameController controller, Skin skin) {
+        super(viewManager, controller, skin);
     }
 
     @Override
@@ -32,7 +33,7 @@ public class SplashScreen extends AbstractScreen {
         elapsed += delta;
         if (elapsed >= 0.5f) {
             done = true;
-            viewManager.showScreenWithTransition(ScreenId.MAIN_MENU);
+            viewManager.showScreen(ScreenId.MAIN_MENU);
         }
     }
 

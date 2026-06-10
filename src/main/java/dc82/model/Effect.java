@@ -27,24 +27,34 @@ public class Effect {
         TALENT
     }
 
-    private final Type type;
-    private final Field field;
-    private final int amount;
-    private final int duration;
-    private final List<Status> statuses;
+    private Type type;
+    private Field field;
+    private double amount;
+    private int duration;
+    private List<Status> statuses;
+
+    // No-arg constructor for LibGDX Json deserialization only
+    public Effect() {
+        this.statuses = new ArrayList<>();
+    }
 
     /** Constructor for a CHANGE_VALUE effect (permanent, no duration). */
-    public Effect(Type type, Field field, int amount) {
+    public Effect(Type type, Field field, double amount) {
         this(type, field, amount, 0, null);
     }
 
     /** Constructor for a MODIFY_VALUE effect (temporary, always targets VALUE). */
-    public Effect(Type type, int amount, int duration) {
+    public Effect(Type type, double amount, int duration) {
         this(type, Field.VALUE, amount, duration, null);
     }
 
+    /** Constructor with type, field, amount and duration (no statuses). */
+    public Effect(Type type, Field field, double amount, int duration) {
+        this(type, field, amount, duration, null);
+    }
+
     /** Full constructor that accepts all fields. */
-    public Effect(Type type, Field field, int amount, int duration, List<Status> statuses) {
+    public Effect(Type type, Field field, double amount, int duration, List<Status> statuses) {
         this.type = type;
         this.field = field;
         this.amount = amount;
@@ -75,6 +85,28 @@ public class Effect {
         this.statuses.add(status);
     }
 
+    // -- Setters (for LibGDX Json deserialization) ---------------------
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public void setField(Field field) {
+        this.field = field;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public void setDuration(int duration) {
+        this.duration = duration;
+    }
+
+    public void setStatuses(List<Status> statuses) {
+        this.statuses = statuses != null ? new ArrayList<>(statuses) : new ArrayList<>();
+    }
+
     // -- Getters -------------------------------------------------------
 
     public Type getType() {
@@ -85,7 +117,7 @@ public class Effect {
         return field;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 

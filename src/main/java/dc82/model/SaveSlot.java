@@ -5,6 +5,7 @@ public class SaveSlot {
     public String displayName;
     public long createdAt;
     public long updatedAt;
+    public GameState gameState = new GameState();
 
     public SaveSlot() {}
 

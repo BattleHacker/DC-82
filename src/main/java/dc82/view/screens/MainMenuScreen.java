@@ -1,17 +1,15 @@
 package dc82.view.screens;
 
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import dc82.controller.GameController;
 import dc82.controller.MenuAction;
 import dc82.view.ViewManager;
-import dc82.view.components.PixelButton;
 
 public class MainMenuScreen extends AbstractScreen {
 
-    public MainMenuScreen(ViewManager viewManager, GameController controller) {
-        super(viewManager, controller);
+    public MainMenuScreen(ViewManager viewManager, GameController controller, Skin skin) {
+        super(viewManager, controller, skin);
     }
 
     @Override
@@ -35,20 +33,4 @@ public class MainMenuScreen extends AbstractScreen {
         stage.addActor(table);
     }
 
-    @Override
-    public void show() {
-        buildUI();
-        super.show();
-    }
-
-    private PixelButton btn(String text, MenuAction action) {
-        var b = new PixelButton(text, skin);
-        b.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                controller.onMenuAction(action);
-            }
-        });
-        return b;
-    }
 }

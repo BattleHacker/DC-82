@@ -12,6 +12,10 @@ public class Status {
     private String name;
     private int duration;
 
+    // No-arg constructor for LibGDX Json deserialization only
+    public Status() {
+    }
+
     public Status(String name, int duration) {
         this.name = name;
         this.duration = duration;
