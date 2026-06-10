@@ -10,6 +10,7 @@ import dc82.controller.MenuAction;
 import dc82.model.Milestone;
 import dc82.model.Path;
 import dc82.view.ViewManager;
+import dc82.view.components.CharacterTile;
 import dc82.view.components.PixelButton;
 
 public class EncounterScreen extends AbstractScreen {
@@ -29,7 +30,7 @@ public class EncounterScreen extends AbstractScreen {
         root.add(btn("MAP", MenuAction.MAP)).left().pad(4).padLeft(8).row();
 
         var body = new Table();
-        body.add(placeholderPanel("LEFT", "--- left placeholder ---")).expand().fill().pad(4);
+        body.add(buildCharacterPanel()).expand().fill().pad(4);
         body.add(placeholderPanel("CENTER", "--- center placeholder ---")).expand().fill().pad(4);
         travelPanel = buildTravelPanel();
         body.add(travelPanel).expand().fill().pad(4);
@@ -49,6 +50,29 @@ public class EncounterScreen extends AbstractScreen {
         t.add(new Label(title, skin)).pad(4).row();
         t.add(new Label(text, skin)).pad(4);
         return t;
+    }
+
+    private Table buildCharacterPanel() {
+        var panel = new Table();
+        panel.top().defaults().pad(4).top();
+
+        var defLine = new Table();
+        defLine.top();
+        defLine.add().expand().fill();
+
+        var frontLine = new Table();
+        frontLine.top();
+        var party = controller.getCurrentSlot().gameState.party;
+        for (var character : party) {
+            frontLine.add(new CharacterTile(character, skin)).pad(2).fillX().expandX().row();
+        }
+
+        panel.add(new Label("DEFENSE LINE", skin));
+        panel.add(new Label("FRONT LINE", skin)).row();
+        panel.add(defLine).fillX().expandX();
+        panel.add(frontLine).fillX().expandX();
+
+        return panel;
     }
 
     private Table buildTravelPanel() {
